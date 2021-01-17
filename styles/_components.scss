@@ -2,7 +2,7 @@
 //////// LOGO
 .logo{
     height: 37.5px;
-    margin-left: 2rem;
+    margin-left: 2rem;   
 }
 
 
@@ -14,6 +14,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media only screen and (max-width: $bp-smallest){
+        order: 1;
+        flex: 0 0 100%; //don't grow, don't shrink, width of the element should be 100%.
+        background-color: var( --color-grey-light-2);
+    }
     
     &__input{
         font-family: inherit;
@@ -138,16 +144,32 @@
     list-style-type: none;
     margin-top: 3rem;
 
+    @media only screen and (max-width: $bp-medium){
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        margin: 0;
+    }
+
+
     &__item{
         position: relative;
 
         &:not(:last-child){
-            margin-bottom: .5rem;
-        } // targets all the items except the last one.
+            margin-bottom: .5rem;   // targets all the items except the last one.
+
+            @media only screen and (max-width: $bp-medium){
+                margin: 0;
+            }
+        } 
+        
+        @media only screen and (max-width: $bp-medium){
+            display: grid;
+            justify-content: center;
+        }
     }
 
     &__item::before{
-        content: "";
+        content: ""; 
         position: absolute;
         top: 0;
         left: 0;
@@ -183,6 +205,16 @@
         
         display: flex;
         align-items: center;
+
+        @media only screen and (max-width: $bp-medium){
+            padding: 2rem;
+            justify-content: center;
+        }
+
+        @media only screen and (max-width: $bp-small){
+            flex-direction: column;
+            padding: 1.5rem .5rem;
+        }
     }
 
     &__icon{
@@ -190,6 +222,13 @@
         height: 1.75rem;
         margin-right: 2rem;
         fill: currentColor; // inherits the color of the parent element (i.e the link)
+
+        @media only screen and (max-width: $bp-small){
+            height: 1.55rem;
+            width: 1.55rem;
+            margin-right: 0;
+            margin-bottom: .5rem;
+        }
     }
 }
 
@@ -201,6 +240,10 @@
     color: var(--color-grey-light-4);
     text-align: center;
     padding: 2.5rem;
+
+    @media only screen and (max-width: $bp-medium){
+        display: none;
+    }
 }
 
 
@@ -210,6 +253,7 @@
 
 .gallery{
     display: flex;
+    
     &__item{
 
     }
@@ -229,13 +273,19 @@
     display: flex;
    align-items: center;
    border-bottom: var(--line);
-
-    &__heading{
+   
+   
+   &__heading{
         font-size: 22.5px;
         font-weight: 300;
         padding: 1.5rem 3rem;
         text-transform: uppercase;
         letter-spacing: 1px;
+
+        @media only screen and (max-width: $bp-small){
+           font-size: 1.8rem;
+           padding: 1.25rem 2rem;
+        }
     }
 
     &__stars{
@@ -248,12 +298,14 @@
         width: 1.75rem;
         height: 17.5px;
         fill: var(--color-primary);
+
+        
     }
 
     &__location{
         font-size: 1.2rem;
         display: flex;
-        align-items: center;
+        vertical-align: center;
     }
 
     &__ratings{
@@ -261,23 +313,35 @@
         color: #fff;
         margin-left: 3rem;
         align-self: stretch;
-        padding: 1rem 2rem;
+        padding: 0 2.25rem;
         
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+
+        @media only screen and (max-width: $bp-small){
+            padding: 0 1.5rem;
+        }
     }
 
     &__rating-average{
         font-size: 2.25rem;
         font-weight: 300;
         margin-bottom: -3px;
+
+        @media only screen and (max-width: $bp-small){
+            font-size: 1.8rem;
+        }
     }
  
     &__rating-count{
         font-size: .8rem;
         text-transform: uppercase;
+
+        @media only screen and (max-width: $bp-small){
+            font-size: .5rem;
+        }
     }
 
 }
@@ -375,13 +439,19 @@
         fill: var(--color-primary);
 
         // OLDER BROWSERS
-        // background-image: url(../img/chevron-thin-right.svg);
-        // background-size: cover;
+            background-image: url(../img/chevron-thin-right.svg);
+            background-size: cover;
 
-        // NEWER BROWSERS
-        background-color: var(--color-primary);
-        -webkit-mask-image: url(../img/chevron-thin-right.svg);
-        -webkit-mask-size: cover;
+        //NEWER BROWSERS -- MASKS
+        @supports (-webkit-mask-image: url()) or (mask-image: url()){
+            background-color: var(--color-primary);
+            -webkit-mask-image: url(../img/chevron-thin-right.svg);
+            -webkit-mask-size: cover;
+            mask-image: url(../img/chevron-thin-right.svg);
+            mask-image: cover;
+            background-image: none;
+        }
+       
     }
 }
 
@@ -401,6 +471,7 @@
 
     &__friends{
         margin-left: auto;
+        display: flex;
     }
 
     &__photo{
@@ -411,7 +482,7 @@
         border-radius: 50%;
         
         &:not(:last-of-type){
-            margin-right: -1.5rem;
+            margin-right: -2rem;
         }
     }
 }
@@ -426,6 +497,11 @@
     margin-bottom: 3.5rem;
     position: relative;
     overflow: hidden;
+
+    @media only screen and (max-width: $bp-medium){
+        margin-bottom: 3rem;
+        padding: 2rem;
+    }
 
     &::before{
         content:"\201C"; 
@@ -490,6 +566,10 @@
 .cta{
     padding: 3.5rem 0;
     text-align: center;
+
+    @media only screen and (max-width: $bp-medium){
+        padding: 2.5rem 0;
+    }
 
     &__text{
         font-size: 2.2rem;
